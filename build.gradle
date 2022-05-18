@@ -8,10 +8,16 @@ group = 'com.fms'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+apply from: 'gradle/liquibase.gradle'
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+
+jar{
+    enabled = false
 }
 
 repositories {
@@ -19,15 +25,28 @@ repositories {
 }
 
 dependencies {
+
+    // Gradle Dependency
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+    implementation 'org.postgresql:postgresql:42.3.4'
+
+    // Project lombok
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.postgresql:postgresql'
+    testCompileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // Others
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Test implementation Dependency
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
 }
