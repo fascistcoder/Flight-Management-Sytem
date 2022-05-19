@@ -1,0 +1,35 @@
+def changeLogVersion = System.getProperty("changeLogVersion")
+def diffLog = "$projectDir/src/main/resources/db/changelog/diffchangelog-${changeLogVersion}.yaml" as Object
+
+configurations {
+    liquibase
+}
+
+dependencies {
+    liquibase 'org.liquibase.ext:liquibase-hibernate5:4.10.0'
+}
+
+/**
+ * DB details are very specific to local profile as we always generate change logs on local
+ * and then commit those changes so that they can be auto applied to subsequent environments.
+ */
+
+task liquibaseDiffChangeLog(type: JavaExec){
+    group = "liquibase"
+
+    classpath sourceSets.main.runtimeClasspath
+    classpath configurations.liquibase
+
+    args "--changeLogFile=${diffLog}"
+
+    //noinspection GroovyAssignabilityCheck
+    args "--referenceUrl=hibernate:spring:com.fms.flight_management_system?dialect=org.hibernate.dialect.MySQL5InnoDBDialect" +
+            "&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy" +
+            "&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+
+    args "--username=postgres"
+    args "--password=postgres"
+    args "--url=jdbc:postgresql://localhost:5432/flightms?zeroDateTimeBehavior=convertToNull&createDatabaseIfNotExist=true"
+    args "--referenceDriver=liquibase.ext.hibernate.database.connection.HibernateDriver"
+    args "diffChangeLog"
+}
