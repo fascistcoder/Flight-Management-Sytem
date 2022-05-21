@@ -3,12 +3,7 @@ package com.fms.flight_management_system.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -18,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Aircraft extends BaseEntity{
+public class Aircraft extends BaseEntity {
 
 	private String manufacturer;
 
