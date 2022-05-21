@@ -25,7 +25,4 @@ public class Aircraft extends BaseEntity{
 	private String model;
 
 	private int numberOfSeats;
-
-	@OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Flight> flights = new ArrayList<>();
 }

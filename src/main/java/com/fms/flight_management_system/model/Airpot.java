@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -22,16 +23,6 @@ public class Airpot extends BaseEntity {
 
 	private String airportCode;
 
-	private String city;
-
-	private String state;
-
-	private String country;
-
-	private String postalCode;
-
-	private String district;
-
-	@OneToMany(mappedBy = "departureAirport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	List<Flight> flights = new ArrayList<>();
+	@Embedded
+	private Address address;
 }

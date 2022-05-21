@@ -40,7 +40,4 @@ public class Flight extends BaseEntity {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Airpot destinationAirport;
-
-	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	List<Passengers> passengers = new ArrayList<>();
 }
