@@ -6,7 +6,7 @@ configurations {
 }
 
 dependencies {
-    liquibase 'org.liquibase.ext:liquibase-hibernate5:4.10.0'
+    liquibase 'org.liquibase.ext:liquibase-hibernate5:4.8.0'
 }
 
 /**
@@ -19,6 +19,7 @@ task liquibaseDiffChangeLog(type: JavaExec){
 
     classpath sourceSets.main.runtimeClasspath
     classpath configurations.liquibase
+    main = "liquibase.integration.commandline.Main"
 
     args "--changeLogFile=${diffLog}"
 

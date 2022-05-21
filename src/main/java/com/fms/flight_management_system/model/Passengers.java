@@ -3,9 +3,12 @@ package com.fms.flight_management_system.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Email;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,6 +19,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Entity
 @Setter
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
 public class Passengers extends BaseEntity {
 
 	private String firstName;
@@ -25,12 +29,11 @@ public class Passengers extends BaseEntity {
 	@NotNull
 	private Long phoneNumber;
 
-	@Email
-	@NotNull
+	@Column(nullable = false)
 	private String email;
 
 	private String address;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Flight flight;
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,6 @@ public class Aircraft extends BaseEntity{
 
 	private int numberOfSeats;
 
-	@OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Flight> flights = new ArrayList<>();
 }

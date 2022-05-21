@@ -3,7 +3,9 @@ package com.fms.flight_management_system.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
@@ -22,12 +24,6 @@ import java.util.List;
 public class Flight extends BaseEntity {
 	private String flightNumber;
 
-	@ManyToOne
-	private Airpot departureAirport;
-
-	@ManyToOne
-	private Airpot destinationAirport;
-
 	private LocalDate departureDate;
 
 	private LocalDate arrivalDate;
@@ -36,9 +32,15 @@ public class Flight extends BaseEntity {
 
 	private double flightCharge;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Aircraft aircraft;
 
-	@OneToMany(mappedBy = "flight")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Airpot departureAirport;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Airpot destinationAirport;
+
+	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	List<Passengers> passengers = new ArrayList<>();
 }
