@@ -5,13 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -36,11 +32,8 @@ public class Flight extends BaseEntity {
 	private Aircraft aircraft;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Airpot departureAirport;
+	private Airport departureAirport;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Airpot destinationAirport;
-
-	@OneToMany(mappedBy = "flight", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	List<Passengers> passengers = new ArrayList<>();
+	private Airport destinationAirport;
 }

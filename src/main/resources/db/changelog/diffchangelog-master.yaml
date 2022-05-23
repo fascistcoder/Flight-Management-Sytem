@@ -1,0 +1,276 @@
+databaseChangeLog:
+- changeSet:
+    id: 1653149610287-1
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: aircraftPK
+            name: id
+            type: BYTEA
+        - column:
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: manufacturer
+            type: VARCHAR(255)
+        - column:
+            name: model
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: number_of_seats
+            type: INTEGER
+        tableName: aircraft
+- changeSet:
+    id: 1653149610287-2
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: airpotPK
+            name: id
+            type: BYTEA
+        - column:
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: airport_code
+            type: VARCHAR(255)
+        - column:
+            name: city
+            type: VARCHAR(255)
+        - column:
+            name: country
+            type: VARCHAR(255)
+        - column:
+            name: district
+            type: VARCHAR(255)
+        - column:
+            name: postal_code
+            type: VARCHAR(255)
+        - column:
+            name: state
+            type: VARCHAR(255)
+        tableName: airpot
+- changeSet:
+    id: 1653149610287-3
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: flightPK
+            name: id
+            type: BYTEA
+        - column:
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: arrival_date
+            type: date
+        - column:
+            name: departure_date
+            type: date
+        - column:
+            name: departure_time
+            type: TIME WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: flight_charge
+            type: DOUBLE PRECISION
+        - column:
+            name: flight_number
+            type: VARCHAR(255)
+        - column:
+            name: aircraft_id
+            type: BYTEA
+        - column:
+            name: departure_airport_id
+            type: BYTEA
+        - column:
+            name: destination_airport_id
+            type: BYTEA
+        tableName: flight
+- changeSet:
+    id: 1653149610287-4
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: passengersPK
+            name: id
+            type: BYTEA
+        - column:
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: address
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            name: phone_number
+            type: BIGINT
+        - column:
+            name: flight_id
+            type: BYTEA
+        tableName: passengers
+- changeSet:
+    id: 1653149610287-5
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: UKhe2lxmd479lr1c8ox64s625gu
+        tableName: passengers
+- changeSet:
+    id: 1653149610287-6
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: departure_airport_id
+        baseTableName: flight
+        constraintName: FK1omga3ngvo69475s7ocpf2lt4
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: airpot
+        validate: true
+- changeSet:
+    id: 1653149610287-7
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: destination_airport_id
+        baseTableName: flight
+        constraintName: FKhla9gw74tmmxdvj5amht29klk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: airpot
+        validate: true
+- changeSet:
+    id: 1653149610287-8
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: aircraft_id
+        baseTableName: flight
+        constraintName: FKmofq89ullrd4qk1hllnyf8pn5
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: aircraft
+        validate: true
+- changeSet:
+    id: 1653149610287-9
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: flight_id
+        baseTableName: passengers
+        constraintName: FKqrje8hik7aglyka606mua5ras
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: flight
+        validate: true
+
+databaseChangeLog:
+- changeSet:
+    id: 1653152339802-1
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: city
+            type: varchar(255)
+        tableName: passengers
+- changeSet:
+    id: 1653152339802-2
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: country
+            type: varchar(255)
+        tableName: passengers
+- changeSet:
+    id: 1653152339802-3
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: district
+            type: varchar(255)
+        tableName: passengers
+- changeSet:
+    id: 1653152339802-4
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: postal_code
+            type: varchar(255)
+        tableName: passengers
+- changeSet:
+    id: 1653152339802-5
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: state
+            type: varchar(255)
+        tableName: passengers
+- changeSet:
+    id: 1653152339802-6
+    author: pulkit.aggarwal (generated)
+    changes:
+    - dropColumn:
+        columnName: address
+        tableName: passengers
+
