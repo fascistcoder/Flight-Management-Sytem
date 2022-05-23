@@ -1,8 +1,11 @@
 package com.fms.flight_management_system.service;
 
 import com.fms.flight_management_system.model.Passengers;
+import com.fms.flight_management_system.rest.dtos.PassengerRequestDto;
+import com.fms.flight_management_system.rest.dtos.PassengerResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -12,9 +15,13 @@ import java.util.List;
 public interface PassengerService {
 	List<Passengers> getAllPassengers();
 
-	Passengers getPassengerById(Long passengerId);
+	Optional<Passengers> getPassengerByEmailAndPhoneNumber(String email, Long phoneNumber);
 
-	Passengers savePassenger(Passengers passenger);
+	Optional<Passengers> findByEmail(String email);
+
+	Optional<Passengers> findByPhoneNUmber(Long phoneNumber);
+
+	PassengerResponseDto savePassenger(PassengerRequestDto passengerRequestDto);
 
 	void deletePassengerById(Long passengerId);
 

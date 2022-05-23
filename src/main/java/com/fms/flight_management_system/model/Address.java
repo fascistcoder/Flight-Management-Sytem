@@ -1,5 +1,8 @@
 package com.fms.flight_management_system.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Embeddable;
 
 /**
@@ -8,7 +11,10 @@ import javax.persistence.Embeddable;
  * @since 21/05/22
  */
 @Embeddable
+@Setter
+@Getter
 public class Address {
+
 	private String city;
 
 	private String state;

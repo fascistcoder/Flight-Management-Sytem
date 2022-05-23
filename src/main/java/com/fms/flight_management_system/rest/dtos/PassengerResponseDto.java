@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 /**
  * @author <a>Pulkit Aggarwal</a>
  * @version 1.0
@@ -21,5 +23,5 @@ public class PassengerResponseDto {
 
 	private Long phoneNumber;
 
-	private String passengerUniqueId;
+	private UUID passengerUniqueId;
 }

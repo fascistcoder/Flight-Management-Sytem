@@ -2,14 +2,25 @@ package com.fms.flight_management_system.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -20,17 +31,46 @@ import java.util.UUID;
 @MappedSuperclass
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(length = 36, columnDefinition = "UUID", updatable = false, nullable = false)
 	protected UUID id;
 
-	@JsonIgnore
-	protected LocalDateTime created;
+	Calendar calendar = Calendar.getInstance();
 
+	@Column(
+			nullable = false,
+			updatable = false,
+			columnDefinition  = ""
+	)
+	@CreatedDate
+	@DateTimeFormat(
+			iso = DateTimeFormat.ISO.DATE_TIME
+	)
+	protected Date created = calendar.getTime();
+
+	@LastModifiedDate
+	@DateTimeFormat(
+			iso = DateTimeFormat.ISO.DATE_TIME
+	)
 	@JsonIgnore
-	protected LocalDateTime lastUpdated;
+	protected Date lastUpdated;
+
+
+	@PrePersist
+	@PreUpdate
+	public void onUpdate() {
+		if (this.created == null) {
+			this.created = calendar.getTime();
+		}
+		this.lastUpdated = calendar.getTime();
+	}
+
 }

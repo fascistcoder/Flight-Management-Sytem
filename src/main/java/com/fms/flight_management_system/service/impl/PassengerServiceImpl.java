@@ -1,13 +1,18 @@
 package com.fms.flight_management_system.service.impl;
 
+import com.fms.flight_management_system.model.Address;
 import com.fms.flight_management_system.model.Passengers;
 import com.fms.flight_management_system.repository.PassengerRepository;
+import com.fms.flight_management_system.rest.dtos.PassengerRequestDto;
+import com.fms.flight_management_system.rest.dtos.PassengerResponseDto;
 import com.fms.flight_management_system.service.PassengerService;
+import com.fms.flight_management_system.util.PassengersUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -20,17 +25,67 @@ import java.util.List;
 public class PassengerServiceImpl implements PassengerService {
 
 	private final PassengerRepository passengerRepository;
+	private final PassengersUtil passengersUtil;
 
 	@Override public List<Passengers> getAllPassengers() {
+
 		return null;
 	}
 
-	@Override public Passengers getPassengerById(Long passengerId) {
-		return null;
+	@Override public Optional<Passengers> getPassengerByEmailAndPhoneNumber(String email, Long phoneNumber) {
+
+		log.info("Searching By Passenger Email {} and PhoneNumber {} ", email, phoneNumber);
+
+		return passengerRepository.findPassengersByEmailAndPhoneNumber(email, phoneNumber)
+				.or(() -> findByEmail(email))
+				.or(() -> findByPhoneNUmber(phoneNumber));
+
 	}
 
-	@Override public Passengers savePassenger(Passengers passenger) {
-		return null;
+	@Override public Optional<Passengers> findByEmail(String email) {
+
+		log.info("Searching By Passenger Email {} ", email);
+
+		return passengerRepository.findByEmail(email);
+	}
+
+	@Override public Optional<Passengers> findByPhoneNUmber(Long phoneNumber) {
+
+		log.info("Searching By Passenger PhoneNumber {} ", phoneNumber);
+
+		return passengerRepository.findPassengersByPhoneNumber(phoneNumber);
+	}
+
+	@Override public PassengerResponseDto savePassenger(PassengerRequestDto passengerRequestDto) {
+
+		Optional<Passengers> passengersOptional = getPassengerByEmailAndPhoneNumber(passengerRequestDto.getEmail(), passengerRequestDto.getPhoneNumber());
+
+		if (passengersOptional.isPresent()) {
+			log.info("Passenger is already present with email {}, phoneNumber {} ", passengerRequestDto.getEmail(), passengerRequestDto.getPhoneNumber());
+
+			return passengersUtil.buildPassengerResponseDto(passengersOptional.get());
+		}
+
+		Passengers passengers = new Passengers();
+		Address address = new Address();
+
+		passengers.setFirstName(passengerRequestDto.getFirstName());
+		passengers.setLastName(passengerRequestDto.getLastName());
+		passengers.setEmail(passengerRequestDto.getEmail());
+		passengers.setPhoneNumber(passengerRequestDto.getPhoneNumber());
+		address.setCity(passengerRequestDto.getCity());
+		address.setCountry(passengerRequestDto.getCountry());
+		address.setDistrict(passengerRequestDto.getDistrict());
+		address.setPostalCode(passengerRequestDto.getPostalCode());
+		address.setState(passengerRequestDto.getState());
+
+		passengers.setAddress(address);
+
+		log.info("Passenger is saved with email {}, phoneNumber {} ", passengers.getEmail(), passengers.getPhoneNumber());
+
+		passengerRepository.save(passengers);
+
+		return passengersUtil.buildPassengerResponseDto(passengers);
 	}
 
 	@Override public void deletePassengerById(Long passengerId) {
