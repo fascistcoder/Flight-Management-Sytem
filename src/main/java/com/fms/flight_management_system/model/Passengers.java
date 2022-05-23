@@ -38,4 +38,6 @@ public class Passengers extends BaseEntity {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Flight flight;
+
+	private String passengerUniqueId;
 }
