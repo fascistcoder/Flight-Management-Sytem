@@ -23,5 +23,5 @@ public class PassengerResponseDto {
 
 	private Long phoneNumber;
 
-	private UUID passengerUniqueId;
+	private String passengerUniqueId;
 }

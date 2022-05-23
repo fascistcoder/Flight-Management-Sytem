@@ -282,3 +282,5 @@ databaseChangeLog:
             type: datetime
         tableName: passengers
 
+databaseChangeLog: []
+

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,5 +37,10 @@ public class PassengerControllerImpl implements PassengerController {
 		PassengerResponseDto passengerResponseDto = passengerService.savePassenger(passengerRequestDto);
 
 		return ResponseEntity.ok().body(passengerResponseDto);
+	}
+
+	@Override public ResponseEntity<List<Passengers>> showAllPassengers() {
+		
+		return ResponseEntity.ok(passengerService.getAllPassengers());
 	}
 }

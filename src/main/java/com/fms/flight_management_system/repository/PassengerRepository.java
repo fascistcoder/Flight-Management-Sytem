@@ -18,4 +18,6 @@ public interface PassengerRepository extends JpaRepository<Passengers, UUID> {
 	Optional<Passengers> findByEmail(String email);
 
 	Optional<Passengers> findPassengersByPhoneNumber(Long phoneNumber);
+
+	Optional<Passengers> findPassengersByPassengerUniqueId(String input);
 }

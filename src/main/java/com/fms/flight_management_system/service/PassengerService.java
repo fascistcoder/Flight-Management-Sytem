@@ -17,10 +17,6 @@ public interface PassengerService {
 
 	Optional<Passengers> getPassengerByEmailAndPhoneNumber(String email, Long phoneNumber);
 
-	Optional<Passengers> findByEmail(String email);
-
-	Optional<Passengers> findByPhoneNUmber(Long phoneNumber);
-
 	PassengerResponseDto savePassenger(PassengerRequestDto passengerRequestDto);
 
 	void deletePassengerById(Long passengerId);

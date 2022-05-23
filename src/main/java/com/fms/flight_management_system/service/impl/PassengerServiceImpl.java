@@ -6,6 +6,7 @@ import com.fms.flight_management_system.repository.PassengerRepository;
 import com.fms.flight_management_system.rest.dtos.PassengerRequestDto;
 import com.fms.flight_management_system.rest.dtos.PassengerResponseDto;
 import com.fms.flight_management_system.service.PassengerService;
+import com.fms.flight_management_system.util.MD5Util;
 import com.fms.flight_management_system.util.PassengersUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,30 +27,32 @@ public class PassengerServiceImpl implements PassengerService {
 
 	private final PassengerRepository passengerRepository;
 	private final PassengersUtil passengersUtil;
+	private final MD5Util md5Util;
 
 	@Override public List<Passengers> getAllPassengers() {
 
-		return null;
+		return passengerRepository.findAll();
 	}
 
 	@Override public Optional<Passengers> getPassengerByEmailAndPhoneNumber(String email, Long phoneNumber) {
 
 		log.info("Searching By Passenger Email {} and PhoneNumber {} ", email, phoneNumber);
 
-		return passengerRepository.findPassengersByEmailAndPhoneNumber(email, phoneNumber)
+		return passengerRepository.findPassengersByPassengerUniqueId(email)
+				.or(() -> passengerRepository.findPassengersByEmailAndPhoneNumber(email, phoneNumber))
 				.or(() -> findByEmail(email))
 				.or(() -> findByPhoneNUmber(phoneNumber));
 
 	}
 
-	@Override public Optional<Passengers> findByEmail(String email) {
+	private Optional<Passengers> findByEmail(String email) {
 
 		log.info("Searching By Passenger Email {} ", email);
 
 		return passengerRepository.findByEmail(email);
 	}
 
-	@Override public Optional<Passengers> findByPhoneNUmber(Long phoneNumber) {
+	private Optional<Passengers> findByPhoneNUmber(Long phoneNumber) {
 
 		log.info("Searching By Passenger PhoneNumber {} ", phoneNumber);
 
@@ -73,6 +76,7 @@ public class PassengerServiceImpl implements PassengerService {
 		passengers.setLastName(passengerRequestDto.getLastName());
 		passengers.setEmail(passengerRequestDto.getEmail());
 		passengers.setPhoneNumber(passengerRequestDto.getPhoneNumber());
+		passengers.setPassengerUniqueId(md5Util.generateMD5(passengerRequestDto.getEmail()));
 		address.setCity(passengerRequestDto.getCity());
 		address.setCountry(passengerRequestDto.getCountry());
 		address.setDistrict(passengerRequestDto.getDistrict());

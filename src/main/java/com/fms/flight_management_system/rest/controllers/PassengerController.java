@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -23,5 +24,8 @@ public interface PassengerController {
 
 	@PostMapping("/v1/passengers-new")
 	ResponseEntity<PassengerResponseDto> savePassengers(@RequestBody @Valid PassengerRequestDto passengerRequestDto);
+
+	@GetMapping("/v1/passengers")
+	ResponseEntity<List<Passengers>> showAllPassengers();
 
 }

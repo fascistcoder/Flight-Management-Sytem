@@ -20,7 +20,7 @@ public class PassengersUtil {
 				.firstName(passengers.getFirstName())
 				.lastName(passengers.getLastName())
 				.phoneNumber(passengers.getPhoneNumber())
-				.passengerUniqueId(passengers.getId())
+				.passengerUniqueId(passengers.getPassengerUniqueId())
 				.build();
 
 		log.info("Passenger Response {} ", passengerResponseDto);
