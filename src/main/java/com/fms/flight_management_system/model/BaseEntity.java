@@ -18,7 +18,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -47,13 +46,13 @@ public abstract class BaseEntity {
 
 	@Column(
 			nullable = false,
-			updatable = false,
-			columnDefinition  = ""
+			updatable = false
 	)
 	@CreatedDate
 	@DateTimeFormat(
 			iso = DateTimeFormat.ISO.DATE_TIME
 	)
+	@JsonIgnore
 	protected Date created = calendar.getTime();
 
 	@LastModifiedDate

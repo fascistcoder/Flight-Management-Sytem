@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -25,7 +26,9 @@ public class PassengerControllerImpl implements PassengerController {
 	private final PassengerService passengerService;
 
 	@Override public ResponseEntity<Passengers> showPassengers(String email, Long phoneNumber) {
-		return null;
+		Optional<Passengers> passengersOp = passengerService.getPassengerByEmailAndPhoneNumber(email, phoneNumber);
+
+		return passengersOp.map(passengers -> ResponseEntity.ok(passengersOp.get())).orElseGet(()-> ResponseEntity.badRequest().body(null));
 	}
 
 	@Override public ResponseEntity<PassengerResponseDto> savePassengers(@Valid PassengerRequestDto passengerRequestDto) {
