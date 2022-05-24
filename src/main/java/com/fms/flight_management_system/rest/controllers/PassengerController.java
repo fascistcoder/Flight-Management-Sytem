@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -28,7 +29,10 @@ public interface PassengerController {
 	@GetMapping("/v1/passengers")
 	ResponseEntity<List<Passengers>> showAllPassengers();
 
-	@GetMapping("/v1/passengers/delete")
+	@GetMapping("/v1/passengers/delete/email")
 	ResponseEntity.BodyBuilder deletePassengerByEmail(@RequestParam("passengerEmail")String email);
+
+	@GetMapping("/v1/passengers/delete/id")
+	ResponseEntity.BodyBuilder deletePassengerById(@RequestParam("passengerId") UUID uuid);
 
 }

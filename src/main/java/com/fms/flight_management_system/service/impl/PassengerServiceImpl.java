@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -99,6 +100,10 @@ public class PassengerServiceImpl implements PassengerService {
 
 		passengerRepository.deleteByEmail(email);
 
+	}
+
+	@Override public void deletePassengerById(UUID id) {
+		passengerRepository.deleteById(id);
 	}
 
 	private void updatePassengerByDetails(PassengerRequestDto passengerRequestDto, Passengers existingPassengers) {

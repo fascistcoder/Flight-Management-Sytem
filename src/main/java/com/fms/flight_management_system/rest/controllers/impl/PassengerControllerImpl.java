@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -47,6 +48,12 @@ public class PassengerControllerImpl implements PassengerController {
 	@Override public ResponseEntity.BodyBuilder deletePassengerByEmail(String email) {
 
 		passengerService.deletePassengerByEmail(email);
+
+		return ResponseEntity.ok();
+	}
+
+	@Override public ResponseEntity.BodyBuilder deletePassengerById(UUID uuid) {
+		passengerService.deletePassengerById(uuid);
 
 		return ResponseEntity.ok();
 	}
