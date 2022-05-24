@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1653149610287-1
+    id: 1653303390362-1
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -11,8 +11,10 @@ databaseChangeLog:
               primaryKey: true
               primaryKeyName: aircraftPK
             name: id
-            type: BYTEA
+            type: UUID
         - column:
+            constraints:
+              nullable: false
             name: created
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
@@ -31,7 +33,7 @@ databaseChangeLog:
             type: INTEGER
         tableName: aircraft
 - changeSet:
-    id: 1653149610287-2
+    id: 1653303390362-2
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -40,18 +42,17 @@ databaseChangeLog:
             constraints:
               nullable: false
               primaryKey: true
-              primaryKeyName: airpotPK
+              primaryKeyName: airportPK
             name: id
-            type: BYTEA
+            type: UUID
         - column:
+            constraints:
+              nullable: false
             name: created
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             name: last_updated
             type: TIMESTAMP WITHOUT TIME ZONE
-        - column:
-            name: airport_code
-            type: VARCHAR(255)
         - column:
             name: city
             type: VARCHAR(255)
@@ -67,9 +68,12 @@ databaseChangeLog:
         - column:
             name: state
             type: VARCHAR(255)
-        tableName: airpot
+        - column:
+            name: airport_code
+            type: VARCHAR(255)
+        tableName: airport
 - changeSet:
-    id: 1653149610287-3
+    id: 1653303390362-3
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -80,8 +84,10 @@ databaseChangeLog:
               primaryKey: true
               primaryKeyName: flightPK
             name: id
-            type: BYTEA
+            type: UUID
         - column:
+            constraints:
+              nullable: false
             name: created
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
@@ -106,16 +112,16 @@ databaseChangeLog:
             type: VARCHAR(255)
         - column:
             name: aircraft_id
-            type: BYTEA
+            type: UUID
         - column:
             name: departure_airport_id
-            type: BYTEA
+            type: UUID
         - column:
             name: destination_airport_id
-            type: BYTEA
+            type: UUID
         tableName: flight
 - changeSet:
-    id: 1653149610287-4
+    id: 1653303390362-4
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -126,15 +132,29 @@ databaseChangeLog:
               primaryKey: true
               primaryKeyName: passengersPK
             name: id
-            type: BYTEA
+            type: UUID
         - column:
+            constraints:
+              nullable: false
             name: created
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             name: last_updated
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
-            name: address
+            name: city
+            type: VARCHAR(255)
+        - column:
+            name: country
+            type: VARCHAR(255)
+        - column:
+            name: district
+            type: VARCHAR(255)
+        - column:
+            name: postal_code
+            type: VARCHAR(255)
+        - column:
+            name: state
             type: VARCHAR(255)
         - column:
             constraints:
@@ -148,14 +168,19 @@ databaseChangeLog:
             name: last_name
             type: VARCHAR(255)
         - column:
+            name: passenger_unique_id
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
             name: phone_number
             type: BIGINT
         - column:
             name: flight_id
-            type: BYTEA
+            type: UUID
         tableName: passengers
 - changeSet:
-    id: 1653149610287-5
+    id: 1653303390362-5
     author: pulkit.aggarwal (generated)
     changes:
     - addUniqueConstraint:
@@ -163,33 +188,33 @@ databaseChangeLog:
         constraintName: UKhe2lxmd479lr1c8ox64s625gu
         tableName: passengers
 - changeSet:
-    id: 1653149610287-6
-    author: pulkit.aggarwal (generated)
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: departure_airport_id
-        baseTableName: flight
-        constraintName: FK1omga3ngvo69475s7ocpf2lt4
-        deferrable: false
-        initiallyDeferred: false
-        referencedColumnNames: id
-        referencedTableName: airpot
-        validate: true
-- changeSet:
-    id: 1653149610287-7
+    id: 1653303390362-6
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
         baseColumnNames: destination_airport_id
         baseTableName: flight
-        constraintName: FKhla9gw74tmmxdvj5amht29klk
+        constraintName: FK6uc5h994cl1g7yxsvnxkilqbl
         deferrable: false
         initiallyDeferred: false
         referencedColumnNames: id
-        referencedTableName: airpot
+        referencedTableName: airport
         validate: true
 - changeSet:
-    id: 1653149610287-8
+    id: 1653303390362-7
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: departure_airport_id
+        baseTableName: flight
+        constraintName: FKillsy04237nltbk2yryrbderb
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: airport
+        validate: true
+- changeSet:
+    id: 1653303390362-8
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
@@ -202,7 +227,7 @@ databaseChangeLog:
         referencedTableName: aircraft
         validate: true
 - changeSet:
-    id: 1653149610287-9
+    id: 1653303390362-9
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
@@ -217,60 +242,45 @@ databaseChangeLog:
 
 databaseChangeLog:
 - changeSet:
-    id: 1653152339802-1
+    id: 1653304079070-1
     author: pulkit.aggarwal (generated)
     changes:
     - addColumn:
         columns:
         - column:
-            name: city
-            type: varchar(255)
-        tableName: passengers
+            name: calendar
+            type: datetime
+        tableName: aircraft
 - changeSet:
-    id: 1653152339802-2
+    id: 1653304079070-2
     author: pulkit.aggarwal (generated)
     changes:
     - addColumn:
         columns:
         - column:
-            name: country
-            type: varchar(255)
-        tableName: passengers
+            name: calendar
+            type: datetime
+        tableName: airport
 - changeSet:
-    id: 1653152339802-3
+    id: 1653304079070-3
     author: pulkit.aggarwal (generated)
     changes:
     - addColumn:
         columns:
         - column:
-            name: district
-            type: varchar(255)
-        tableName: passengers
+            name: calendar
+            type: datetime
+        tableName: flight
 - changeSet:
-    id: 1653152339802-4
+    id: 1653304079070-4
     author: pulkit.aggarwal (generated)
     changes:
     - addColumn:
         columns:
         - column:
-            name: postal_code
-            type: varchar(255)
+            name: calendar
+            type: datetime
         tableName: passengers
-- changeSet:
-    id: 1653152339802-5
-    author: pulkit.aggarwal (generated)
-    changes:
-    - addColumn:
-        columns:
-        - column:
-            name: state
-            type: varchar(255)
-        tableName: passengers
-- changeSet:
-    id: 1653152339802-6
-    author: pulkit.aggarwal (generated)
-    changes:
-    - dropColumn:
-        columnName: address
-        tableName: passengers
+
+databaseChangeLog: []
 
