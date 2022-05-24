@@ -20,19 +20,22 @@ import java.util.UUID;
  */
 
 public interface PassengerController {
-	@GetMapping("/v1/passengers-details")
-	ResponseEntity<Passengers> showPassengers(@RequestParam("email") String email, @RequestParam("phoneNumber") Long phoneNumber);
+	@GetMapping("/v1/details/passengers/email")
+	ResponseEntity<Passengers> showPassengersByEmail(@RequestParam("email") String email, @RequestParam("phoneNumber") Long phoneNumber);
 
-	@PostMapping("/v1/passengers-new")
+	@PostMapping("/v1/save/passengers")
 	ResponseEntity<PassengerResponseDto> savePassengers(@RequestBody @Valid PassengerRequestDto passengerRequestDto);
 
-	@GetMapping("/v1/passengers")
+	@GetMapping("/v1/show-all/passengers")
 	ResponseEntity<List<Passengers>> showAllPassengers();
 
-	@GetMapping("/v1/passengers/delete/email")
+	@GetMapping("/v1/delete/passengers/email")
 	ResponseEntity.BodyBuilder deletePassengerByEmail(@RequestParam("passengerEmail")String email);
 
-	@GetMapping("/v1/passengers/delete/id")
+	@GetMapping("/v1/delete/passengers/id")
 	ResponseEntity.BodyBuilder deletePassengerById(@RequestParam("passengerId") UUID uuid);
+
+	@GetMapping("/v1/show/passengers/id")
+	ResponseEntity<PassengerResponseDto> showPassengersById(@RequestParam("passengerId") UUID uuid);
 
 }

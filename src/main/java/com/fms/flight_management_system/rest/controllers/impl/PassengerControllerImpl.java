@@ -27,7 +27,7 @@ public class PassengerControllerImpl implements PassengerController {
 
 	private final PassengerService passengerService;
 
-	@Override public ResponseEntity<Passengers> showPassengers(String email, Long phoneNumber) {
+	@Override public ResponseEntity<Passengers> showPassengersByEmail(String email, Long phoneNumber) {
 		Optional<Passengers> passengersOp = passengerService.getPassengerByEmailAndPhoneNumber(email, phoneNumber);
 
 		return passengersOp.map(passengers -> ResponseEntity.ok(passengersOp.get())).orElseGet(()-> ResponseEntity.badRequest().body(null));
@@ -56,5 +56,10 @@ public class PassengerControllerImpl implements PassengerController {
 		passengerService.deletePassengerById(uuid);
 
 		return ResponseEntity.ok();
+	}
+
+	@Override public ResponseEntity<PassengerResponseDto> showPassengersById(UUID uuid) {
+
+		return ResponseEntity.ok().body(passengerService.getPassengerById(uuid));
 	}
 }

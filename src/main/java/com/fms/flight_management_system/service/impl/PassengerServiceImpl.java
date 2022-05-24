@@ -123,4 +123,12 @@ public class PassengerServiceImpl implements PassengerService {
 
 		passengerRepository.save(existingPassengers);
 	}
+
+	@Override public PassengerResponseDto getPassengerById(UUID uuid) {
+
+		Optional<Passengers> passengers = passengerRepository.findById(uuid);
+
+		return passengers.map(passengersUtil::buildPassengerResponseDto).orElse(null);
+
+	}
 }

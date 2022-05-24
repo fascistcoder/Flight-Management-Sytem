@@ -23,4 +23,6 @@ public interface PassengerService {
 	void deletePassengerByEmail(String email);
 
 	void deletePassengerById(UUID id);
+
+	PassengerResponseDto getPassengerById(UUID uuid);
 }
