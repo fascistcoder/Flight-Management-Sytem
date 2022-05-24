@@ -19,7 +19,5 @@ public interface PassengerService {
 
 	PassengerResponseDto savePassenger(PassengerRequestDto passengerRequestDto);
 
-	void deletePassengerById(Long passengerId);
-
-	void updatePassengerByDetails(String email, Long phoneNumber);
+	void deletePassengerByEmail(String email);
 }

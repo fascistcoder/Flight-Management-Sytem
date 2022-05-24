@@ -11,6 +11,7 @@ import com.fms.flight_management_system.util.PassengersUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +65,9 @@ public class PassengerServiceImpl implements PassengerService {
 		Optional<Passengers> passengersOptional = getPassengerByEmailAndPhoneNumber(passengerRequestDto.getEmail(), passengerRequestDto.getPhoneNumber());
 
 		if (passengersOptional.isPresent()) {
-			log.info("Passenger is already present with email {}, phoneNumber {} ", passengerRequestDto.getEmail(), passengerRequestDto.getPhoneNumber());
+			log.info("Passenger is already present and update Passenger with email {}, phoneNumber {} ", passengerRequestDto.getEmail(), passengerRequestDto.getPhoneNumber());
+
+			updatePassengerByDetails(passengerRequestDto, passengersOptional.get());
 
 			return passengersUtil.buildPassengerResponseDto(passengersOptional.get());
 		}
@@ -92,11 +95,27 @@ public class PassengerServiceImpl implements PassengerService {
 		return passengersUtil.buildPassengerResponseDto(passengers);
 	}
 
-	@Override public void deletePassengerById(Long passengerId) {
+	@Transactional @Override public void deletePassengerByEmail(String email) {
+
+		passengerRepository.deleteByEmail(email);
 
 	}
 
-	@Override public void updatePassengerByDetails(String email, Long phoneNumber) {
+	private void updatePassengerByDetails(PassengerRequestDto passengerRequestDto, Passengers existingPassengers) {
 
+		log.info("Update Passengers Basic Details Not updating Email");
+
+		Address address = new Address();
+
+		existingPassengers.setFirstName(passengerRequestDto.getFirstName());
+		existingPassengers.setLastName(passengerRequestDto.getLastName());
+		existingPassengers.setPhoneNumber(passengerRequestDto.getPhoneNumber());
+		address.setCity(passengerRequestDto.getCity());
+		address.setCountry(passengerRequestDto.getCountry());
+		address.setDistrict(passengerRequestDto.getDistrict());
+		address.setPostalCode(passengerRequestDto.getPostalCode());
+		address.setState(passengerRequestDto.getState());
+
+		passengerRepository.save(existingPassengers);
 	}
 }

@@ -28,4 +28,7 @@ public interface PassengerController {
 	@GetMapping("/v1/passengers")
 	ResponseEntity<List<Passengers>> showAllPassengers();
 
+	@GetMapping("/v1/passengers/delete")
+	ResponseEntity.BodyBuilder deletePassengerByEmail(@RequestParam("passengerEmail")String email);
+
 }

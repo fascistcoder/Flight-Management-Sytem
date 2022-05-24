@@ -40,7 +40,14 @@ public class PassengerControllerImpl implements PassengerController {
 	}
 
 	@Override public ResponseEntity<List<Passengers>> showAllPassengers() {
-		
+
 		return ResponseEntity.ok(passengerService.getAllPassengers());
+	}
+
+	@Override public ResponseEntity.BodyBuilder deletePassengerByEmail(String email) {
+
+		passengerService.deletePassengerByEmail(email);
+
+		return ResponseEntity.ok();
 	}
 }

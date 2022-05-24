@@ -20,4 +20,6 @@ public interface PassengerRepository extends JpaRepository<Passengers, UUID> {
 	Optional<Passengers> findPassengersByPhoneNumber(Long phoneNumber);
 
 	Optional<Passengers> findPassengersByPassengerUniqueId(String input);
+
+	void deleteByEmail(String email);
 }
