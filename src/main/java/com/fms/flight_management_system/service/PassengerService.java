@@ -6,6 +6,7 @@ import com.fms.flight_management_system.rest.dtos.PassengerResponseDto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -20,4 +21,8 @@ public interface PassengerService {
 	PassengerResponseDto savePassenger(PassengerRequestDto passengerRequestDto);
 
 	void deletePassengerByEmail(String email);
+
+	void deletePassengerById(UUID id);
+
+	PassengerResponseDto getPassengerById(UUID uuid);
 }

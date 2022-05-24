@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -26,7 +27,7 @@ public class PassengerControllerImpl implements PassengerController {
 
 	private final PassengerService passengerService;
 
-	@Override public ResponseEntity<Passengers> showPassengers(String email, Long phoneNumber) {
+	@Override public ResponseEntity<Passengers> showPassengersByEmail(String email, Long phoneNumber) {
 		Optional<Passengers> passengersOp = passengerService.getPassengerByEmailAndPhoneNumber(email, phoneNumber);
 
 		return passengersOp.map(passengers -> ResponseEntity.ok(passengersOp.get())).orElseGet(()-> ResponseEntity.badRequest().body(null));
@@ -49,5 +50,16 @@ public class PassengerControllerImpl implements PassengerController {
 		passengerService.deletePassengerByEmail(email);
 
 		return ResponseEntity.ok();
+	}
+
+	@Override public ResponseEntity.BodyBuilder deletePassengerById(UUID uuid) {
+		passengerService.deletePassengerById(uuid);
+
+		return ResponseEntity.ok();
+	}
+
+	@Override public ResponseEntity<PassengerResponseDto> showPassengersById(UUID uuid) {
+
+		return ResponseEntity.ok().body(passengerService.getPassengerById(uuid));
 	}
 }
