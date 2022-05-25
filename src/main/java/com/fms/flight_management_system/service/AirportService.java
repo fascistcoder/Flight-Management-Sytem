@@ -6,4 +6,5 @@ package com.fms.flight_management_system.service;
  * @since 24/05/22
  */
 public interface AirportService {
+
 }

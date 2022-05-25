@@ -3,6 +3,7 @@ package com.fms.flight_management_system.service;
 import com.fms.flight_management_system.model.Passengers;
 import com.fms.flight_management_system.rest.dtos.PassengerRequestDto;
 import com.fms.flight_management_system.rest.dtos.PassengerResponseDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,4 +26,6 @@ public interface PassengerService {
 	void deletePassengerById(UUID id);
 
 	PassengerResponseDto getPassengerById(UUID uuid);
+
+	Page<Passengers> getAllPassengersPaged(int pageNum);
 }
