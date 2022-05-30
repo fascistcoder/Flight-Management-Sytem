@@ -31,6 +31,15 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override public void saveAirport(Airport airport) {
+		Optional<Airport> airportOptional = getAirportByAirportCode(airport.getAirportCode());
+
+		if(airportOptional.isPresent()){
+			log.info("Airport already present need to be update {} ", airport.getAirportCode());
+
+		}
+
+		log.info("Airport had been saved {} ", airport.getAirportCode());
+		airportRepository.save(airport);
 
 	}
 
