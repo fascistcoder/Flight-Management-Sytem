@@ -11,4 +11,5 @@ import java.util.UUID;
  * @since 24/05/22
  */
 public interface AirportRepository extends JpaRepository<Airport, UUID> {
+	void deleteAirportByAirportCode(String airportCode);
 }

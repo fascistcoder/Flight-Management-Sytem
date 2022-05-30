@@ -35,6 +35,10 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override public void deleteAirport(String airportCode) {
+		Optional<Airport> airportOptional = getAirportByAirportCode(airportCode);
 
+		if(airportOptional.isPresent()){
+			airportRepository.deleteAirportByAirportCode(airportCode);
+		}
 	}
 }
