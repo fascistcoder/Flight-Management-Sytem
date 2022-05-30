@@ -10,6 +10,9 @@ import com.fms.flight_management_system.util.MD5Util;
 import com.fms.flight_management_system.util.PassengersUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,5 +133,9 @@ public class PassengerServiceImpl implements PassengerService {
 
 		return passengers.map(passengersUtil::buildPassengerResponseDto).orElse(null);
 
+	}
+
+	@Override public Page<Passengers> getAllPassengersPaged(int pageNum) {
+		return passengerRepository.findAll(PageRequest.of(pageNum, 5, Sort.by("firstName")));
 	}
 }
