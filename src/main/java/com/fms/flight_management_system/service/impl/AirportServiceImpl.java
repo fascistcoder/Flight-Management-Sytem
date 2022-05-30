@@ -27,7 +27,8 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override public Optional<Airport> getAirportByAirportCode(String airportCode) {
-		return Optional.empty();
+
+		return airportRepository.findByAirportCode(airportCode);
 	}
 
 	@Override public void saveAirport(Airport airport) {
