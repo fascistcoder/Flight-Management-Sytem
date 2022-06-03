@@ -11,6 +11,10 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:17.0.1
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
