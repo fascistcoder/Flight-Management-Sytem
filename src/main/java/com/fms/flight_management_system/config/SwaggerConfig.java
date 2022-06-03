@@ -1,12 +1,12 @@
 package com.fms.flight_management_system.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import lombok.Generated;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 /**
  * @author <a>Pulkit Aggarwal</a>
@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
 	@Bean
-	public OpenAPI fmsOpenAPI() {
-		return new OpenAPI().path("*", new PathItem())
+	public OpenAPI customOpenAPI() {
+		return new OpenAPI()
 				.info(new Info()
 						.title("Flight Management System")
 						.version("1")
