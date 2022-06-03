@@ -16,7 +16,7 @@ public interface AirportService {
 
 	Optional<Airport> getAirportByAirportCode(String airportCode);
 
-	Optional<Airport> saveAirport(Airport airport);
+	void saveAirport(Airport airport);
 
 	void deleteAirport(String airportCode);
 

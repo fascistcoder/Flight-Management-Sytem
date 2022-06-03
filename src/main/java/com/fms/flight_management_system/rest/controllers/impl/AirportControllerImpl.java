@@ -27,9 +27,9 @@ public class AirportControllerImpl implements AirportController {
 
 	@Override public ResponseEntity<Airport> saveAirport(Airport airport) {
 
-		Optional<Airport> airportOptional = airportService.saveAirport(airport);
+		airportService.saveAirport(airport);
 
-		return airportOptional.map(airport1 -> ResponseEntity.ok().body(airport1)).orElseGet(() -> ResponseEntity.badRequest().body(null));
+		return ResponseEntity.ok().body(airport);
 	}
 
 	@Override public ResponseEntity<Airport> showAirportByAirportCode(String airportCode) {
