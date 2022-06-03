@@ -22,7 +22,7 @@ public class AirportControllerImpl implements AirportController {
 	private final AirportService airportService;
 
 	@Override public ResponseEntity<List<Airport>> showAllAirports() {
-		return ResponseEntity.ok(airportService.getAllAirports());
+		return ResponseEntity.ok().body(airportService.getAllAirports());
 	}
 
 	@Override public ResponseEntity<Airport> saveAirport(Airport airport) {
