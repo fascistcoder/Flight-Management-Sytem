@@ -1,6 +1,8 @@
+
+
 databaseChangeLog:
 - changeSet:
-    id: 1653303390362-1
+    id: 1654245853177-1
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -12,6 +14,9 @@ databaseChangeLog:
               primaryKeyName: aircraftPK
             name: id
             type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             constraints:
               nullable: false
@@ -33,7 +38,7 @@ databaseChangeLog:
             type: INTEGER
         tableName: aircraft
 - changeSet:
-    id: 1653303390362-2
+    id: 1654245853177-2
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -45,6 +50,9 @@ databaseChangeLog:
               primaryKeyName: airportPK
             name: id
             type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             constraints:
               nullable: false
@@ -73,7 +81,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: airport
 - changeSet:
-    id: 1653303390362-3
+    id: 1654245853177-3
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -85,6 +93,9 @@ databaseChangeLog:
               primaryKeyName: flightPK
             name: id
             type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             constraints:
               nullable: false
@@ -121,7 +132,7 @@ databaseChangeLog:
             type: UUID
         tableName: flight
 - changeSet:
-    id: 1653303390362-4
+    id: 1654245853177-4
     author: pulkit.aggarwal (generated)
     changes:
     - createTable:
@@ -133,6 +144,9 @@ databaseChangeLog:
               primaryKeyName: passengersPK
             name: id
             type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
         - column:
             constraints:
               nullable: false
@@ -180,7 +194,7 @@ databaseChangeLog:
             type: UUID
         tableName: passengers
 - changeSet:
-    id: 1653303390362-5
+    id: 1654245853177-5
     author: pulkit.aggarwal (generated)
     changes:
     - addUniqueConstraint:
@@ -188,7 +202,7 @@ databaseChangeLog:
         constraintName: UKhe2lxmd479lr1c8ox64s625gu
         tableName: passengers
 - changeSet:
-    id: 1653303390362-6
+    id: 1654245853177-6
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
@@ -201,7 +215,7 @@ databaseChangeLog:
         referencedTableName: airport
         validate: true
 - changeSet:
-    id: 1653303390362-7
+    id: 1654245853177-7
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
@@ -214,7 +228,7 @@ databaseChangeLog:
         referencedTableName: airport
         validate: true
 - changeSet:
-    id: 1653303390362-8
+    id: 1654245853177-8
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
@@ -227,7 +241,7 @@ databaseChangeLog:
         referencedTableName: aircraft
         validate: true
 - changeSet:
-    id: 1653303390362-9
+    id: 1654245853177-9
     author: pulkit.aggarwal (generated)
     changes:
     - addForeignKeyConstraint:
@@ -239,48 +253,4 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: flight
         validate: true
-
-databaseChangeLog:
-- changeSet:
-    id: 1653304079070-1
-    author: pulkit.aggarwal (generated)
-    changes:
-    - addColumn:
-        columns:
-        - column:
-            name: calendar
-            type: datetime
-        tableName: aircraft
-- changeSet:
-    id: 1653304079070-2
-    author: pulkit.aggarwal (generated)
-    changes:
-    - addColumn:
-        columns:
-        - column:
-            name: calendar
-            type: datetime
-        tableName: airport
-- changeSet:
-    id: 1653304079070-3
-    author: pulkit.aggarwal (generated)
-    changes:
-    - addColumn:
-        columns:
-        - column:
-            name: calendar
-            type: datetime
-        tableName: flight
-- changeSet:
-    id: 1653304079070-4
-    author: pulkit.aggarwal (generated)
-    changes:
-    - addColumn:
-        columns:
-        - column:
-            name: calendar
-            type: datetime
-        tableName: passengers
-
-databaseChangeLog: []
 

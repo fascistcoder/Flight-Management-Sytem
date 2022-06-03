@@ -2,7 +2,6 @@ package com.fms.flight_management_system.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,17 +30,18 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BaseEntity {
 
 	@Id
+	@JsonIgnore
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(length = 36, columnDefinition = "UUID", updatable = false, nullable = false)
 	protected UUID id;
 
+	@JsonIgnore
 	Calendar calendar = Calendar.getInstance();
 
 	@Column(
