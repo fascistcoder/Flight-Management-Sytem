@@ -1,0 +1,256 @@
+
+
+databaseChangeLog:
+- changeSet:
+    id: 1654245853177-1
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: aircraftPK
+            name: id
+            type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: manufacturer
+            type: VARCHAR(255)
+        - column:
+            name: model
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: number_of_seats
+            type: INTEGER
+        tableName: aircraft
+- changeSet:
+    id: 1654245853177-2
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: airportPK
+            name: id
+            type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: city
+            type: VARCHAR(255)
+        - column:
+            name: country
+            type: VARCHAR(255)
+        - column:
+            name: district
+            type: VARCHAR(255)
+        - column:
+            name: postal_code
+            type: VARCHAR(255)
+        - column:
+            name: state
+            type: VARCHAR(255)
+        - column:
+            name: airport_code
+            type: VARCHAR(255)
+        tableName: airport
+- changeSet:
+    id: 1654245853177-3
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: flightPK
+            name: id
+            type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: arrival_date
+            type: date
+        - column:
+            name: departure_date
+            type: date
+        - column:
+            name: departure_time
+            type: TIME WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: flight_charge
+            type: DOUBLE PRECISION
+        - column:
+            name: flight_number
+            type: VARCHAR(255)
+        - column:
+            name: aircraft_id
+            type: UUID
+        - column:
+            name: departure_airport_id
+            type: UUID
+        - column:
+            name: destination_airport_id
+            type: UUID
+        tableName: flight
+- changeSet:
+    id: 1654245853177-4
+    author: pulkit.aggarwal (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: passengersPK
+            name: id
+            type: UUID
+        - column:
+            name: calendar
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: created
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_updated
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: city
+            type: VARCHAR(255)
+        - column:
+            name: country
+            type: VARCHAR(255)
+        - column:
+            name: district
+            type: VARCHAR(255)
+        - column:
+            name: postal_code
+            type: VARCHAR(255)
+        - column:
+            name: state
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            name: passenger_unique_id
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: phone_number
+            type: BIGINT
+        - column:
+            name: flight_id
+            type: UUID
+        tableName: passengers
+- changeSet:
+    id: 1654245853177-5
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: UKhe2lxmd479lr1c8ox64s625gu
+        tableName: passengers
+- changeSet:
+    id: 1654245853177-6
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: destination_airport_id
+        baseTableName: flight
+        constraintName: FK6uc5h994cl1g7yxsvnxkilqbl
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: airport
+        validate: true
+- changeSet:
+    id: 1654245853177-7
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: departure_airport_id
+        baseTableName: flight
+        constraintName: FKillsy04237nltbk2yryrbderb
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: airport
+        validate: true
+- changeSet:
+    id: 1654245853177-8
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: aircraft_id
+        baseTableName: flight
+        constraintName: FKmofq89ullrd4qk1hllnyf8pn5
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: aircraft
+        validate: true
+- changeSet:
+    id: 1654245853177-9
+    author: pulkit.aggarwal (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: flight_id
+        baseTableName: passengers
+        constraintName: FKqrje8hik7aglyka606mua5ras
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: flight
+        validate: true
+

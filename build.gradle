@@ -4,9 +4,9 @@ plugins {
     id 'java'
 }
 
-group = 'com.fms'
+group = 'com.fms.flight_management_system'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '17'
 
 apply from: 'gradle/liquibase.gradle'
 
@@ -16,7 +16,7 @@ configurations {
     }
 }
 
-jar{
+jar {
     enabled = false
 }
 
@@ -29,14 +29,20 @@ dependencies {
     // Gradle Dependency
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
     implementation 'org.postgresql:postgresql:42.3.4'
+    implementation 'org.hibernate:hibernate-gradle-plugin:5.6.9.Final'
+
+    //liquibase
+    implementation 'org.liquibase:liquibase-core'
 
     // Project lombok
     compileOnly 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
 
     // Others
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
