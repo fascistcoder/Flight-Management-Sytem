@@ -29,18 +29,31 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override public Optional<Flight> getFlightByFlightNumber(String flightNumber) {
-		return Optional.empty();
+		return flightRepository.findFlightByFlightNumber(flightNumber);
 	}
 
 	@Override public void saveFlight(Flight flight) {
+		Optional<Flight> flightOptional = getFlightByFlightNumber(flight.getFlightNumber());
 
+		if(flightOptional.isPresent()){
+			log.info("Flight already present does not need to be update {} ", flight.getFlightNumber());
+			return;
+		}
+
+		log.info("Flight had been saved {} ", flight.getFlightNumber());
+		flightRepository.save(flight);
 	}
 
-	@Override public void deleteFlight(String flight) {
+	@Override public void deleteFlight(String flightNumber) {
+		Optional<Flight> flightOptional = getFlightByFlightNumber(flightNumber);
 
+		if(flightOptional.isPresent()){
+			log.info("Flight is found and deleted successfully");
+			flightRepository.deleteByFlightNumber(flightNumber);
+		}
 	}
 
 	@Override public List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate) {
-		return null;
+		return flightRepository.findAllByDepartureAirportAndDestinationAirportAndDepartureDate(depAirport, destAirport, depDate);
 	}
 }

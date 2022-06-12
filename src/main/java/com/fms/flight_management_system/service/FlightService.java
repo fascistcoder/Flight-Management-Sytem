@@ -19,7 +19,7 @@ public interface FlightService {
 
 	void saveFlight(Flight flight);
 
-	void deleteFlight(String flight);
+	void deleteFlight(String flightNumber);
 
 	List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate);
 }
