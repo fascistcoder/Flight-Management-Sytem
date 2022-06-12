@@ -10,4 +10,5 @@ How to run the project
 
 # Circle Ci Badge
 
-[![CircleCI](https://circleci.com/gh/fascistcoder/Flight-Management-Sytem/tree/develop.svg?style=svg)](https://circleci.com/gh/fascistcoder/Flight-Management-Sytem/tree/develop)
+[![CircleCI](https://circleci.com/gh/fascistcoder/Flight-Management-Sytem/tree/master.svg?style=svg)](https://circleci.com/gh/fascistcoder/Flight-Management-Sytem/tree/master)
+
