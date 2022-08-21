@@ -1,7 +1,6 @@
 package com.fms.flight_management_system.service;
 
 import com.fms.flight_management_system.model.Aircraft;
-import com.fms.flight_management_system.model.Airport;
 
 import java.util.List;
 import java.util.Optional;
